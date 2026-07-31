@@ -271,7 +271,7 @@ onUnmounted(() => {
   width: 100%;
   min-height: 100vh;
   padding: 40px 20px;
-  background: url('../../images/bg.jpg') no-repeat;
+  background: #0f0c29 url('/images/bg.jpg') no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
