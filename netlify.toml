@@ -1,0 +1,22 @@
+[[redirects]]
+  from = "/gtimg/*"
+  to = "http://qt.gtimg.cn/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/eastmoney_report/*"
+  to = "https://reportapi.eastmoney.com/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://sqlite-mreb.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
