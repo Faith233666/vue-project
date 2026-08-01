@@ -37,7 +37,7 @@ const reportsList = ref<ReportItem[]>([])
 const stockList = [
   { name: '亨通光电', code: 'sh600487', rawCode: '600487' },
   { name: '赣锋锂业', code: 'sz002460', rawCode: '002460' },
-  { name: '招商银行', code: 'sh600036', rawCode: '600036' }
+  { name: '格力电器', code: 'sz000651', rawCode: '000651' }
 ]
 
 let timer: ReturnType<typeof setInterval> | null = null
