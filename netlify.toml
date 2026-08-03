@@ -1,26 +1,78 @@
+# Netlify 部署配置 — Vue3 前端 + Render 后端
+# 文档: https://docs.netlify.com/configure-builds/file-based-configuration/
+
 [build]
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# 本地 netlify dev 预览时使用相同代理规则
+[dev]
+  command = "npm run dev"
+  targetPort = 5173
+  port = 8888
+  autoLaunch = false
+
+# ── 第三方 API 代理（解决浏览器跨域） ──────────────────────────
+
+# 腾讯股票行情
 [[redirects]]
   from = "/gtimg/*"
   to = "http://qt.gtimg.cn/:splat"
   status = 200
   force = true
 
+# 东方财富研报
 [[redirects]]
   from = "/eastmoney_report/*"
   to = "https://reportapi.eastmoney.com/:splat"
   status = 200
   force = true
 
+# Render 后端 API（Express + SQLite）
 [[redirects]]
   from = "/api/*"
-  to = "https://sqlite-mreb.onrender.com/api/:splat"
+  to = "https://user-api-mj3k.onrender.com/api/:splat"
   status = 200
   force = true
+
+# ── Vue Router History 模式 SPA 回退 ───────────────────────────
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# ── 静态资源缓存 ───────────────────────────────────────────────
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# ── 基础安全响应头 ─────────────────────────────────────────────
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
